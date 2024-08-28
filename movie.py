@@ -62,15 +62,7 @@ def search(funct_list):
             print(f"Film/serial został znaleziony w bazie danych. Znajduje się na pozycji:  {index+1}. {value}")
             return
     print(f"Filmu/Serialu {movie_to_search} nie znaleziono w bazie danych")
-"""
-def search(funct_list):
-    movie_to_search = input("Wpisz nazwe szukanego filu lub serialu: ")
-    for i in range(len(funct_list)):
-        if movie_to_search == funct_list[i].title:
-            print(f"Film/serial został znaleziony w bazie danych. Znajduje się na pozycji:  {i+1}. {list[i]}")
-            return
-    print(f"Filmu/Serialu {movie_to_search} nie znaleziono w bazie danych")
-"""
+
 #definiujemy funkcję która powtórzy nam operację generowania oglądnięć filmów/seriali określoną ilość razy
 def repeat_generate_views(num_of_repeat,temp_list):
     for i in range(num_of_repeat):
