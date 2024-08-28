@@ -49,12 +49,20 @@ def list_sorting(funct_list):
 #definiujemy funkcję która rozpoznaje które instancje to seriale a które to filmy i zwraca odpowiedznią listę do funkcji get_series lub get_movie
 def reco_class_type(funct_list,type_of_class):
     temp_list=[]
-    for i in range(len(funct_list)):
-        if type(funct_list[i]) is type_of_class:
-            temp_list.append(funct_list[i])
+    for element in funct_list:
+        if type(element) is type_of_class:
+            temp_list.append(element)
     return temp_list
 
 #definiujemy funkcję wyszukiwania filmów/seriali
+def search(funct_list):
+    movie_to_search = input("Wpisz nazwe szukanego filu lub serialu: ")
+    for index, value in enumerate(funct_list):
+        if movie_to_search == value.title:
+            print(f"Film/serial został znaleziony w bazie danych. Znajduje się na pozycji:  {index+1}. {value}")
+            return
+    print(f"Filmu/Serialu {movie_to_search} nie znaleziono w bazie danych")
+"""
 def search(funct_list):
     movie_to_search = input("Wpisz nazwe szukanego filu lub serialu: ")
     for i in range(len(funct_list)):
@@ -62,7 +70,7 @@ def search(funct_list):
             print(f"Film/serial został znaleziony w bazie danych. Znajduje się na pozycji:  {i+1}. {list[i]}")
             return
     print(f"Filmu/Serialu {movie_to_search} nie znaleziono w bazie danych")
-
+"""
 #definiujemy funkcję która powtórzy nam operację generowania oglądnięć filmów/seriali określoną ilość razy
 def repeat_generate_views(num_of_repeat,temp_list):
     for i in range(num_of_repeat):
@@ -77,8 +85,7 @@ def generate_views(temp_list):
 
 #Funkcja która ma nam zwrócić listę top 3 seriali/filmów
 def top_titles(funct_list):
-    funct_list = sorted(funct_list, key=lambda i: i.play_number)
-    funct_list.reverse()
+    funct_list = sorted(funct_list, key=lambda i: i.play_number, reverse=True)
     return funct_list
 
 def generate_full_series():
@@ -116,20 +123,20 @@ if __name__ == "__main__":
 
 #wyświetlamy pełną listę seriali i filmów dla przejrzystowści działania programu
     print("All Movies & Series in database")
-    for i in range(len(mov_ser_base_list)):
-        print(i+1, " ", mov_ser_base_list[i])
+    for index, value in enumerate(mov_ser_base_list):
+        print(index+1, " ", value)
 
 #wyświetlamy wszytskie filmy posortowane pod względem nazwy
     sorted_series_movie = get_movie(mov_ser_base_list)
     print("Movies only, sorted by title:")
-    for i in range(len(sorted_series_movie)):
-        print(i+1, " ", sorted_series_movie[i])
+    for index, value in enumerate(sorted_series_movie):
+        print(index+1, " ", value)
 
 #wyświetlamy wszytskie seriale posortowane pod względem nazwy
     sorted_series_movie = get_series(mov_ser_base_list)
     print("Series only, sorted by title:")
-    for i in range(len(sorted_series_movie)):
-        print(i+1, " ", sorted_series_movie[i])
+    for index, value in enumerate(sorted_series_movie):
+        print(index+1, " ", value)
 
 #Wyświetlamy top 3 seriale lub filmy z dzisiejszego dnia
     top_tiles = top_titles(mov_ser_base_list)
