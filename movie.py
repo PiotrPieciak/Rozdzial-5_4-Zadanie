@@ -34,30 +34,31 @@ def random_category():
     return random.choice( ["Action", "Thriller", "Horror", "Sci-Fi", "Documentary", "Romance comedy", "Romance comedy" ] )
 
 #definiujemy funkcje która zwróci nam listę filmów posortowaną alfabetycznie
-def get_movie(list):
-    temp_list = reco_class_type(list,Movies)
-    list = sorted(temp_list, key=lambda title: title.title)
-    return list
+def get_movie(funct_list):
+    funct_list = list_sorting(reco_class_type(funct_list,Movies))
+    return funct_list
 
 #definiujemy funkcje która zwróci nam listę seriali posortowaną alfabetycznie
-def get_series(list):
-    temp_list = reco_class_type(list,Series)
-    list = sorted(temp_list, key=lambda title: title.title)
-    return list
+def get_series(funct_list):
+    funct_list = list_sorting(reco_class_type(funct_list,Series))
+    return funct_list
+
+def list_sorting(funct_list):
+    return sorted(funct_list, key=lambda title: title.title)
 
 #definiujemy funkcję która rozpoznaje które instancje to seriale a które to filmy i zwraca odpowiedznią listę do funkcji get_series lub get_movie
-def reco_class_type(list,type_of_class):
+def reco_class_type(funct_list,type_of_class):
     temp_list=[]
-    for i,value in enumerate(list):
-        if type(list[i]) is type_of_class:
-            temp_list.append(list[i])
+    for i in range(len(funct_list)):
+        if type(funct_list[i]) is type_of_class:
+            temp_list.append(funct_list[i])
     return temp_list
 
 #definiujemy funkcję wyszukiwania filmów/seriali
-def search(list):
+def search(funct_list):
     movie_to_search = input("Wpisz nazwe szukanego filu lub serialu: ")
-    for i,value in enumerate(list):
-        if movie_to_search == list[i].title:
+    for i in range(len(funct_list)):
+        if movie_to_search == funct_list[i].title:
             print(f"Film/serial został znaleziony w bazie danych. Znajduje się na pozycji:  {i+1}. {list[i]}")
             return
     print(f"Filmu/Serialu {movie_to_search} nie znaleziono w bazie danych")
@@ -71,15 +72,14 @@ def repeat_generate_views(num_of_repeat,temp_list):
 def generate_views(temp_list): 
     num_of_plays = random.randint(1,100)
     random_list_element = temp_list[random.randint(0, len(temp_list)-1)]
-    for i in range (num_of_plays):
+    for i in range(num_of_plays):
         random_list_element.play()
 
 #Funkcja która ma nam zwrócić listę top 3 seriali/filmów
-def top_titles(list):
-    temp_list=[]
-    list = sorted(list, key=lambda i: i.play_number)
-    temp_list = list[:-4:-1]
-    return temp_list
+def top_titles(funct_list):
+    funct_list = sorted(funct_list, key=lambda i: i.play_number)
+    funct_list.reverse()
+    return funct_list
 
 def generate_full_series():
     temp_series_list=[]
@@ -116,19 +116,19 @@ if __name__ == "__main__":
 
 #wyświetlamy pełną listę seriali i filmów dla przejrzystowści działania programu
     print("All Movies & Series in database")
-    for i,val in enumerate(mov_ser_base_list):
+    for i in range(len(mov_ser_base_list)):
         print(i+1, " ", mov_ser_base_list[i])
 
 #wyświetlamy wszytskie filmy posortowane pod względem nazwy
     sorted_series_movie = get_movie(mov_ser_base_list)
     print("Movies only, sorted by title:")
-    for i,val in enumerate(sorted_series_movie):
+    for i in range(len(sorted_series_movie)):
         print(i+1, " ", sorted_series_movie[i])
 
 #wyświetlamy wszytskie seriale posortowane pod względem nazwy
     sorted_series_movie = get_series(mov_ser_base_list)
     print("Series only, sorted by title:")
-    for i,val in enumerate(sorted_series_movie):
+    for i in range(len(sorted_series_movie)):
         print(i+1, " ", sorted_series_movie[i])
 
 #Wyświetlamy top 3 seriale lub filmy z dzisiejszego dnia
